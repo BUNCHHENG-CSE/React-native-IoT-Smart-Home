@@ -38,20 +38,20 @@ const Welcome = () => {
             </GradientText>
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
+          Smart Home - Your Home, Smarter!{"\n"}Experience the convenience and security of a smart home at your fingertips. Download Smart Home app today and take control of your home environment like never before!
           </Text>
-          <View className="mt-28 w-full">
+          <View className="mt-20 w-full">
             <CustomButton
               title="Continue with Email"
               handlePress={() => router.push("/login")}
-              containerStyles="w-full  bg-red-100"
+              containerStyles="w-full  bg-cyan-500"
+              textStyles="text-white "
             />
 
             <CustomButton
-              title="Continue with Guest"
+              title="All Group Members"
               handlePress={() => router.push("/guest")}
-              containerStyles="w-full mt-5 bg-red-100"
+              containerStyles="w-full mt-5 border border-cyan-200"
             />
           </View>
         </View>

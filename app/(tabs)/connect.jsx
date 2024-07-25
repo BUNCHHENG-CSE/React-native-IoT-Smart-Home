@@ -126,14 +126,14 @@ const Connect = () => {
             <CustomButton
               title={`${connectStatus}`}
               handlePress={connect}
-              containerStyles="mt-4 bg-blue-700"
+              containerStyles="mt-4 bg-blue-600"
               textStyles="text-white"
             />
 
             <CustomButton
               title="Disconnect"
               handlePress={disconnect}
-              containerStyles="mt-2 mb-5 bg-red-700 "
+              containerStyles="mt-2 mb-5 bg-red-600 "
               textStyles="text-white"
             />
           </View>

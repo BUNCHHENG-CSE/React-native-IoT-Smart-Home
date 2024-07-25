@@ -94,7 +94,7 @@ const Login = () => {
           <CustomButton
             title="Log In"
             handlePress={submit}
-            containerStyles="mt-5 bg-cyan-300 w-full"
+            containerStyles="mt-5 bg-cyan-500 w-full"
             textStyles="text-white "
             isLoading={isSubmitting}
           />

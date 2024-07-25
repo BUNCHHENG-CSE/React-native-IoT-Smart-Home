@@ -46,13 +46,13 @@ const subscribe = () => {
             <CustomButton
               title={isSubed ? "Subcribed" : "Subcribe"}
               handlePress={handleSubcribe}
-              containerStyles="mt-7 bg-blue-700"
+              containerStyles="mt-7 bg-blue-600"
               textStyles="text-white"
             />
             <CustomButton
               title="Unsubscribe"
               handlePress={handleUnSubcribe}
-              containerStyles="mt-7 bg-red-700"
+              containerStyles="mt-7 bg-red-600"
               textStyles="text-white"
             />
           </View>

@@ -32,8 +32,8 @@ const home = () => {
                   <Text className="font-pextrabold text-2xl text-black">
                     IoT | Smart Home
                   </Text>
-                  <Text className="text-sm font-psemibold text-gray-400">
-                    Group 6
+                  <Text className="text-sm font-psemibold text-gray-400 uppercase">
+                  RUPP | Computer Science
                   </Text>
                 </View>
 
