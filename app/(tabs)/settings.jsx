@@ -4,23 +4,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const settings = () => {
+  const { setIsLogged } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
   const logout = () => {
-   
     AsyncStorage.removeItem("token")
       .then(() => {
         setSubmitting(true);
         console.log("Data removed successfully.");
-        return router.replace("/login");
-
-        //return router.navigate('/login')
+        setIsLogged(false);
+        router.replace("/login");
       })
       .catch((error) => {
         console.error("Error removing data: ", error);
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
-
   };
   return (
     <>

@@ -1,9 +1,10 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
+import { useGlobalContext } from "../../context/GlobalProvider";
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="flex items-center justify-center gap-2">
@@ -24,6 +25,10 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const _layout = () => {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && !isLogged) return <Redirect href="/login" />;
+
   return (
     <>
       <Tabs

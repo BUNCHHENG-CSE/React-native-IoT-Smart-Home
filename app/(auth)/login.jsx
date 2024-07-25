@@ -27,9 +27,11 @@ const Login = () => {
   const demoPassword = "demo12345";
   const logIn = (email, password) => {
     if (demoEmail === email && demoPassword === password) {
-      AsyncStorage.setItem("token","YVhRZ2FYTnVKM1FnWVNCd1lYTnpkMjl5WkE9PQ==")
+      AsyncStorage.setItem("token", "YVhRZ2FYTnVKM1FnWVNCd1lYTnpkMjl5WkE9PQ==");
       return true;
     } else {
+      Alert.alert("Error", "The email and password you entered is incorrect. Please try again",);
+      setForm({...form,password:""})
       return false;
     }
   };
@@ -37,17 +39,12 @@ const Login = () => {
     if (form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill in all fields");
     }
-
     setSubmitting(true);
-
     try {
       const loginUser = logIn(form.email, form.password);
-
-      //const result = await getCurrentUser();
-      //setUser(result);
       if (loginUser) {
         setIsLogged(true);
-        Alert.alert("Success", "User signed in successfully");
+        Alert.alert("Success", "Login successfully");
         router.replace("/home");
       }
     } catch (error) {
