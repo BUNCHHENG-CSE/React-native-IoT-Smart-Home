@@ -10,7 +10,7 @@ const Connect = () => {
   const { mqttConnect, mqttDisconnect, connectStatus } =useEMQXConnectionContext();
   const [connection, setConnection] = useState({
     protocol: "",
-    host: "",
+    host: "g64819f1.ala.asia-southeast1.emqxsl.com",
     port: "8084",
     clientID: "emqx_react_native_" + Math.random().toString(16).substring(2, 8),
     username: "",
@@ -39,7 +39,7 @@ const Connect = () => {
     mqttDisconnect();
     setConnection({
       protocol: "",
-      host: "",
+      host: "g64819f1.ala.asia-southeast1.emqxsl.com",
       port: "8084",
       clientID:
         "emqx_react_native_" + Math.random().toString(16).substring(2, 8),
