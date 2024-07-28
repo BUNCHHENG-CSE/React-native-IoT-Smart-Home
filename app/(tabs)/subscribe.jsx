@@ -8,7 +8,7 @@ import { useEMQXConnectionContext } from "../../context/EMQXConnectionProvider";
 const subscribe = () => {
   const { mqttSub, isSubed, mqttUnSub } = useEMQXConnectionContext();
   const [subscribe, setSubscribe] = useState({
-    topic: "",
+    topic: "esp32/smarthome",
     qos: 0,
   });
   const handleSubcribe = () => {
@@ -17,14 +17,14 @@ const subscribe = () => {
   const handleUnSubcribe = () => {
     mqttUnSub({ topic: subscribe.topic });
     setSubscribe({
-      topic: "",
+      topic: "esp32/smarthome",
       qos: 0,
     });
   };
   return (
     <>
       <SafeAreaView className="h-full">
-        <ScrollView>
+        <ScrollView className="bg-slate-50">
           <View className="w-full flex justify-center h-full px-4 my-6">
             <Text className="text-xl font-pextrabold text-black mt-10 ">
               Connect To EMQX Subscribe

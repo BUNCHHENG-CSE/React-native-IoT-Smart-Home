@@ -1,4 +1,4 @@
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
@@ -27,7 +27,8 @@ const settings = () => {
   return (
     <>
       <SafeAreaView>
-        <View className="mt-10 h-full">
+        <ScrollView className="bg-slate-50">
+        <View className="mt-10 h-full ">
           <CustomButton
             title="Log Out"
             handlePress={logout}
@@ -37,6 +38,8 @@ const settings = () => {
             className=""
           />
         </View>
+        </ScrollView>
+        
       </SafeAreaView>
     </>
   );

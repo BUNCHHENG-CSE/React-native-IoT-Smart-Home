@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image,FlatList } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FeatureCard from "../../../components/FeatureCard";
 import { icons } from "../../../constants";
@@ -13,11 +13,13 @@ const home = () => {
     { id: 4, title: "Control Door & Window", icon: icons.door },
     { id: 5, title: "Temperature", icon: icons.temperature },
     { id: 6, title: "Garden", icon: icons.garden },
+    { id: 7, title: "Control Sign", icon: icons.signtracking },
   ];
   return (
     <>
       <SafeAreaView>
         <FlatList
+        className="bg-slate-50"
           data={features}
           keyExtractor={(item) => item.id}
           numColumns={2}
@@ -26,14 +28,14 @@ const home = () => {
           )}
           stickyHeaderIndices={[0]}
           ListHeaderComponent={() => (
-            <View className="flex mt-6 mb-2 px-4 space-y-4 ">
+            <View className="flex pt-5 mb-2 px-4 space-y-4 bg-slate-50">
               <View className="flex justify-between items-start flex-row mb-6">
                 <View>
                   <Text className="font-pextrabold text-2xl text-black">
                     IoT | Smart Home
                   </Text>
                   <Text className="text-sm font-psemibold text-gray-400 uppercase">
-                  RUPP | Computer Science
+                    RUPP | Computer Science
                   </Text>
                 </View>
 

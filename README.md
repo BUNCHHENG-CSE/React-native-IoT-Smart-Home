@@ -18,3 +18,4 @@
 
 - Hang Bunchheng | Member **Work on software and coding to build  ( web app and mobile app )**
 
+npm i @tensorflow/tfjs-react-native

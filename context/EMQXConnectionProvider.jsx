@@ -10,9 +10,12 @@ const EMQXConnectionProvider = ({ children }) => {
   const [isSubed, setIsSub] = useState(false);
   const [payload, setPayload] = useState({});
   const [connectStatus, setConnectStatus] = useState("Connect");
-  //const [payloadDataKey, setPayloadDataKey] = useState([]);
   const [options, setOptions] = useState({});
   const [subscribe, setSubscribe] = useState({});
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const mqttConnect = (mqttOption) => {
     setConnectStatus("Connecting...");
@@ -89,7 +92,7 @@ const EMQXConnectionProvider = ({ children }) => {
   const mqttUnSub = (subscription) => {
     setSubscribe(subscription);
     if (client) {
-      const { topic} = subscription;
+      const { topic } = subscription;
       try {
         client.unsubscribe(subscribe.topic);
         console.log(`unsubscribed topic: ${topic}`);
@@ -120,29 +123,34 @@ const EMQXConnectionProvider = ({ children }) => {
     setConnectStatus("Connect");
     client.disconnect();
   }
-  function onMessageArrived(message) {
-    setPayload(message.payloadString);
-    // if (payload.topic) {
-    //   setPayloadDataKey(Object.keys(JSON.parse(payload.message)));
-    //  // setPayloadDataValue(Object.values(JSON.parse(payload.message)));
-    //   if (payloadDataKey[2] === "fire") {
-    //     for (i = 0; i < 3; i++) {
-    //       toast.error("Fire !!!", {
-    //         position: "top-center",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "colored",
-    //         font: "Poppins",
-    //       });
-    //     }
-    //     setTempDataValue([]);
-    //     setTempDataKey([]);
-    //   }
-    // }
+
+  async function onMessageArrived(message) {
+    let payload = message.payloadString;
+    setPayload(payload);
+
+    if (payload !== "") {
+      let payloadJSONParse = Object.keys(JSON.parse(payload));
+      if (payloadJSONParse.length() >= 3) {
+        if (payloadJSONParse[2] === "fire") {
+          for (i = 0; i < 3; i++) {
+            // toast.error("Fire !!!", {
+            //   position: "top-center",
+            //   autoClose: 5000,
+            //   hideProgressBar: false,
+            //   closeOnClick: true,
+            //   pauseOnHover: true,
+            //   draggable: true,
+            //   progress: undefined,
+            //   theme: "colored",
+            //   font: "Poppins",
+            // });
+
+            console.log("Fire!!!!!");
+            await sleep(5000);
+          }
+        }
+      }
+    }
   }
   return (
     <EMQXConnectionContext.Provider

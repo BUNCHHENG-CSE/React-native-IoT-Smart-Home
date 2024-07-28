@@ -50,7 +50,7 @@ const Connect = () => {
   return (
     <>
       <SafeAreaView>
-        <ScrollView>
+        <ScrollView className="bg-slate-50">
           <View className="w-full flex justify-center h-full px-4 mt-2 mb-6">
             <Text className="text-xl font-pextrabold text-black mt-10 ">
               Connect to EMQX

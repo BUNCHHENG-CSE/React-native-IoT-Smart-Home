@@ -61,6 +61,15 @@ const Homelayout = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="ControlSign"
+        options={{
+          headerTitle: "Control Sign",
+          headerTitleStyle: {
+            fontFamily: "Poppins-Bold",
+          },
+        }}
+      />
     </Stack>
   );
 };

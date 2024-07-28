@@ -24,16 +24,17 @@ const index = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (payload.topic) {
-      setTempDataKey(Object.keys(JSON.parse(payload.message)));
-      setTempDataValue(Object.values(JSON.parse(payload.message)));
+    if (payload !== "") {
+      console.log(payload)
+      // setTempDataKey(Object.keys(JSON.parse(payload)));
+      // setTempDataValue(Object.values(JSON.parse(payload)));
       if (tempDataKey[0] == "temperature" && tempDataKey[1] == "humidity") {
         setTemperature(tempDataValue[0]);
         setHumidity(tempDataValue[1]);
-        SetPostData({
-          temperature: Number(tempDataValue[0]),
-          humidity: Number(tempDataValue[1]),
-        });
+        // SetPostData({
+        //   temperature: Number(tempDataValue[0]),
+        //   humidity: Number(tempDataValue[1]),
+        // });
         setTempDataValue([]);
         setTempDataKey([]);
       }

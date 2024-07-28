@@ -28,14 +28,20 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+        }
+      ]
     ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "41f40165-85d2-45f1-9ee0-731b18c06f8b"
+        "projectId": "a45b782d-c901-4ddf-849e-af31b932bfe6"
       }
     }
   }

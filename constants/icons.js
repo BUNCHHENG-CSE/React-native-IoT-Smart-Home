@@ -12,6 +12,7 @@ import door from "../assets/icons/door.png"
 import airconditioner from "../assets/icons/air-conditioner.png"
 import temperature from "../assets/icons/temperature.png"
 import garden from "../assets/icons/garden.png"
+import signtracking from "../assets/icons/gestures.png"
 export default {
   home,
   subscribe,
@@ -26,5 +27,6 @@ export default {
   door,
   airconditioner,
   temperature,
-  garden
+  garden,
+  signtracking
 };
