@@ -4,13 +4,14 @@ import { Client, Message } from "paho-mqtt";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import { Platform } from "react-native";
 const EMQXConnectionContext = createContext();
 
 export const useEMQXConnectionContext = () => useContext(EMQXConnectionContext);
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
@@ -25,10 +26,9 @@ const EMQXConnectionProvider = ({ children }) => {
 
   const [expoPushToken, setExpoPushToken] = useState("");
   useEffect(() => {
-    console.log("Register");
     registerForPushNotificationsAsync()
       .then((token) => {
-        console.log("token: ", token);
+       // console.log("token: ", token);
         setExpoPushToken(token);
       })
       .catch((err) => console.log(err));
@@ -80,11 +80,25 @@ const EMQXConnectionProvider = ({ children }) => {
     } else {
       alert("Must use physical device for Push Notifications");
     }
-
     return token;
   }
-  const sendNotification = () => {
-    console.log("Sending push notification");
+  const sendNotification = async (t, b) => {
+    const message = {
+      to: expoPushToken,
+      sound: "default",
+      title: t,
+      body: b,
+    };
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        host: " exp.host",
+        accept: "application/json",
+        "accept-encoding": "gzip, deflate",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
   };
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -122,7 +136,7 @@ const EMQXConnectionProvider = ({ children }) => {
       client.onMessageArrived = onMessageArrived;
     }
   }, [client]);
-
+// { "temperature": 35,"humidity": 58,"fire": "fire" } testing data
   const mqttDisconnect = () => {
     if (client) {
       try {
@@ -189,13 +203,13 @@ const EMQXConnectionProvider = ({ children }) => {
   async function onMessageArrived(message) {
     let payload = message.payloadString;
     setPayload(payload);
-
     if (payload !== "") {
       let payloadJSONParse = Object.keys(JSON.parse(payload));
-      if (payloadJSONParse.length() >= 3) {
+      if (payloadJSONParse.length >= 3) {
         if (payloadJSONParse[2] === "fire") {
           for (i = 0; i < 3; i++) {
             console.log("Fire!!!!!");
+           sendNotification("Fire alert","Fire 🔥🔥🔥🔥🔥🔥")
             await sleep(5000);
           }
         }

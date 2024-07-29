@@ -2,7 +2,7 @@
   "expo": {
     "name": "Smart Home",
     "scheme": "IoT-Smart-Home",
-    "slug": "IoT-smart-home",
+    "slug": "iot-smart-home",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,7 +33,11 @@
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "25b672f9-9144-4b74-86f7-e5f18ecd8743"
       }
-    }
+    },
+    "owner": "chhengg"
   }
 }
