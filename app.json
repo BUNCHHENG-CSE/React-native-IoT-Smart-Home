@@ -14,14 +14,15 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.IoTSmartHome"
+      "bundleIdentifier": "com.iot.smarthome"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.IoTSmartHome"
+      "googleServicesFile": "./google-services.json",
+      "package": "com.iot.smarthome"
     },
     "web": {
       "favicon": "./assets/favicon.png"

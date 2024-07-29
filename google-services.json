@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "523210382607",
+    "project_id": "react-native-push-notifi-2da34",
+    "storage_bucket": "react-native-push-notifi-2da34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523210382607:android:08e4024bcc58c8787f727a",
+        "android_client_info": {
+          "package_name": "com.iot.smarthome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4IFb7EnJpGxJIaIAgqQhxcIdW-ABpKpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

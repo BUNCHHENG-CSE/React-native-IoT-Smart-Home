@@ -3,6 +3,11 @@
 # dependencies
 node_modules/
 
+# credentials
+
+credentials.json
+react-native-push-notifi-2da34-firebase-adminsdk-kju6r-e8174d9141.json
+react-native-push-notifi-2da34-firebase-adminsdk-kju6r-9f4c00d590.json
 # Expo
 .expo/
 dist/
