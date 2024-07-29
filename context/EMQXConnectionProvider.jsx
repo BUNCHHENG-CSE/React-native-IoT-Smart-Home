@@ -1,9 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Client, Message } from "paho-mqtt";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 const EMQXConnectionContext = createContext();
 
 export const useEMQXConnectionContext = () => useContext(EMQXConnectionContext);
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const EMQXConnectionProvider = ({ children }) => {
   const [client, setClient] = useState();
@@ -13,6 +23,69 @@ const EMQXConnectionProvider = ({ children }) => {
   const [options, setOptions] = useState({});
   const [subscribe, setSubscribe] = useState({});
 
+  const [expoPushToken, setExpoPushToken] = useState("");
+  useEffect(() => {
+    console.log("Register");
+    registerForPushNotificationsAsync()
+      .then((token) => {
+        console.log("token: ", token);
+        setExpoPushToken(token);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      // Learn more about projectId:
+      // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+      // EAS projectId is used here.
+      try {
+        const projectId =
+          Constants?.expoConfig?.extra?.eas?.projectId ??
+          Constants?.easConfig?.projectId;
+        if (!projectId) {
+          throw new Error("Project ID not found");
+        }
+        token = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId,
+          })
+        ).data;
+        console.log(token);
+      } catch (e) {
+        token = `${e}`;
+      }
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    return token;
+  }
+  const sendNotification = () => {
+    console.log("Sending push notification");
+  };
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -106,17 +179,6 @@ const EMQXConnectionProvider = ({ children }) => {
   function onSuccessTOEMQX() {
     setConnectStatus("Connected");
     console.log("connection successfull");
-    // toast.info("Connect successfull to EMQX Platform ", {
-    //   position: "top-center",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "colored",
-    //   font: "Poppins",
-    // });
   }
   function onFailureTOEMQX(err) {
     console.error("Connection error: ", err);
@@ -133,18 +195,6 @@ const EMQXConnectionProvider = ({ children }) => {
       if (payloadJSONParse.length() >= 3) {
         if (payloadJSONParse[2] === "fire") {
           for (i = 0; i < 3; i++) {
-            // toast.error("Fire !!!", {
-            //   position: "top-center",
-            //   autoClose: 5000,
-            //   hideProgressBar: false,
-            //   closeOnClick: true,
-            //   pauseOnHover: true,
-            //   draggable: true,
-            //   progress: undefined,
-            //   theme: "colored",
-            //   font: "Poppins",
-            // });
-
             console.log("Fire!!!!!");
             await sleep(5000);
           }

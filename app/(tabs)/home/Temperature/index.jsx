@@ -24,13 +24,12 @@ const index = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (payload !== "") {
-      console.log(payload)
-      // setTempDataKey(Object.keys(JSON.parse(payload)));
-      // setTempDataValue(Object.values(JSON.parse(payload)));
-      if (tempDataKey[0] == "temperature" && tempDataKey[1] == "humidity") {
-        setTemperature(tempDataValue[0]);
-        setHumidity(tempDataValue[1]);
+    if (Object.keys(payload).length !== 0) {
+      let tempKey = Object.keys(JSON.parse(payload));
+      let tempValue = Object.values(JSON.parse(payload));
+      if (tempKey[0] == "temperature" && tempKey[1] == "humidity") {
+        setTemperature(tempValue[0]);
+        setHumidity(tempValue[1]);
         // SetPostData({
         //   temperature: Number(tempDataValue[0]),
         //   humidity: Number(tempDataValue[1]),
@@ -38,6 +37,8 @@ const index = () => {
         setTempDataValue([]);
         setTempDataKey([]);
       }
+    } else {
+      return;
     }
   }, [payload]);
 
@@ -60,7 +61,7 @@ const index = () => {
     return (
       <ActivityIndicator
         className="flex items-center justify-center mt-10"
-        size='large'
+        size="large"
       />
     );
   }
