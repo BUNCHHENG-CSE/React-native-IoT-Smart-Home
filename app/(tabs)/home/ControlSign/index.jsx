@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import { Camera } from "react-native-vision-camera";
-//import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
 //import { Camera } from "expo-camera";
 
 //const TensorflowCamera = cameraWithTensors(Camera);
