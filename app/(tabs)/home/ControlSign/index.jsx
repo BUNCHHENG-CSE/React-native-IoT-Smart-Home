@@ -1,9 +1,6 @@
 import { View, Text } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
-import { Camera } from "react-native-vision-camera";
-//import { Camera } from "expo-camera";
 
-//const TensorflowCamera = cameraWithTensors(Camera);
 const index = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [model, setModel] = useState(null);
