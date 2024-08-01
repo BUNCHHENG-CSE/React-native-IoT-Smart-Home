@@ -1,8 +1,10 @@
 import { View, Text } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
+// import { useCameraDevice, useCameraPermission } from "react-native-vision-camera";
 
 const index = () => {
-  const [hasPermission, setHasPermission] = useState(null);
+  const device = useCameraDevice()
+  const { hasPermission, requestPermission } = useCameraPermission()
   const [model, setModel] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const cameraRef = useRef(null);

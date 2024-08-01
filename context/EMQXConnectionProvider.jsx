@@ -206,7 +206,6 @@ const EMQXConnectionProvider = ({ children }) => {
     if (payload !== "") {
       let payloadJSONParse = Object.keys(JSON.parse(payload));
       if (payloadJSONParse.length >= 3) {
-        
         if (payloadJSONParse[2] === "fire") {
           sendNotification("Fire alert","Fire 🔥🔥🔥🔥🔥🔥")
           await sleep(5000);
