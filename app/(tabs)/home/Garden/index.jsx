@@ -1,18 +1,29 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import GradientText from "../../../../components/GradientText";
 import { useEMQXConnectionContext } from "../../../../context/EMQXConnectionProvider";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { base_url_from_ow } from "../../../../components/BaseUrl";
+import axios from "axios";
 const index = () => {
   const { mqttPublish, payload } = useEMQXConnectionContext();
   const [data, setData] = useState([]);
   const [temperature, setTemperature] = useState(0);
   const [arrTemperature, setArrTemperature] = useState([]);
-  const [date, setDate] = useState();
+  const [tempDate, setTempDate] = useState([]);
   const [waterPumbToggle, setWaterPumbToggle] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [tempDataKey, setTempDataKey] = useState([]);
+  const [tempDataValue, setTempDataValue] = useState([]);
   const formatDate = (isoString) => {
     const date = new Date(isoString);
     return date.toLocaleString("en-US", {
@@ -32,8 +43,8 @@ const index = () => {
   const compareDates = (dateString1, dateString2) => {
     const date1 = dateString1;
     const date2 = dateString2;
-    console.log("Date1", date1);
-    console.log("Date2", date2);
+    // console.log("Date1", date1);
+    // console.log("Date2", date2);
     if (date1 < date2) {
       return -1;
     } else if (date1 > date2) {
@@ -80,62 +91,25 @@ const index = () => {
       .catch((error) => {
         console.error("Error retrieving data: ", error);
       });
-    // axios
-    //   .get(`${base_url_from_ow}/getData`)
-    //   .then((response) => {
-    //     setData(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("There was an error fetching the data!", error);
-    //   });
+  
     // //console.log(formatDateNow(new Date(Date.now())));
-    // data.map((m) => {
-    //   arrTemperature.push(m.temperature);
-    //   if (
-    //     compareDates(
-    //       formatDateNow(new Date(Date.now())),
-    //       formatDate(m.timestamp)
-    //     ) === 0
-    //   ) {
-    //     setDate(formatDate(m.timestamp));
-    //   }
-    // });
   }, []);
+  useEffect(() => {
+    if (Object.keys(payload).length !== 0) {
+      let tempKey = Object.keys(JSON.parse(payload));
+      let tempValue = Object.values(JSON.parse(payload));
+      if (tempKey[0] == "temperature") {
+        setTemperature(tempValue[0]);
+        
+        setTempDataValue([]);
+        setTempDataKey([]);
+      }
+    } else {
+      return;
+    }
+  }, [payload]);
 
-  // useEffect(() => {
-  //   data.map((m, index) => {
-  //     if (
-  //       compareDates(
-  //         formatDateNow(new Date(Date.now())),
-  //         formatDate(m.timestamp)
-  //       ) === 0
-  //     ) {
-  //       if (formatTime(m.timestamp) === formatTimeNow(new Date(Date.now()))) {
-  //         setTemperature(arrTemperature[index]);
-  //       } else {
-  //         setTemperature(arrTemperature[0]);
-  //       }
-  //     }
-  //   });
-  //   const interval = setInterval(() => {
-  //     data.map((m, index) => {
-  //       if (
-  //         compareDates(
-  //           formatDateNow(new Date(Date.now())),
-  //           formatDate(m.timestamp)
-  //         ) === 0
-  //       ) {
-  //         if (formatTime(m.timestamp) === formatTimeNow(new Date(Date.now()))) {
-  //           setTemperature(arrTemperature[index]);
-  //         } else {
-  //           setTemperature(arrTemperature[0]);
-  //         }
-  //       }
-  //     });
-  //   }, 2000); // 2 hours in milliseconds
-  //   return () => clearInterval(interval);
-  // }, []);
-  //compareDates(formatDateNow(new Date(Date.now())), date) !== 0
+  
   return (
     <View className="mt-5 mx-2">
       <View>
