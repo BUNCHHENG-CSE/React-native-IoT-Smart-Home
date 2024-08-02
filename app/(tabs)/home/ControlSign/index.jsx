@@ -8,7 +8,7 @@ import {
   useSkiaFrameProcessor,
 } from "react-native-vision-camera";
 import { useFocusEffect } from "expo-router";
-import { BlendColor, ColorMatrix, Paint,rect2rect } from "@shopify/react-native-skia";
+import { Skia } from "@shopify/react-native-skia";
 
 
 const index = () => {
@@ -28,9 +28,9 @@ const index = () => {
   
     const centerX = frame.width / 2
     const centerY = frame.height / 2
-    const rect = rect2rect(centerX, centerY, 150, 150)
-    const paint = Paint()
-    paint.setColor()
+    const rect = Skia.XYWHRect(centerX, centerY, 150, 150)
+    const paint = Skia.Paint()
+    paint.setColor(Skia.Color('red'))
     frame.drawRect(rect, paint)
   }, [])
 
