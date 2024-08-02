@@ -17,9 +17,12 @@ const index = () => {
   const [model, setModel] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const cameraRef = useRef(null);
+  
   const frameProcessor = useFrameProcessor((frame)=>{
     'worklet'
-    console.log(`Frame: ${frame.width}x${frame.height} (${frame.pixelFormat})`)
+    const objects = detectObjects(frame)
+    const label = objects[0].name
+    console.log(`You're looking at a ${label}.`)
   },[])
   useEffect(() => {
     if (!hasPermission) {

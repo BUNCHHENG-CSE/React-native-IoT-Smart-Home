@@ -28,8 +28,8 @@ const index = () => {
       let tempKey = Object.keys(JSON.parse(payload));
       let tempValue = Object.values(JSON.parse(payload));
       if (tempKey[0] == "temperature" && tempKey[1] == "humidity") {
-        setTemperature(tempValue[0]);
-        setHumidity(tempValue[1]);
+        if (tempValue[0] !== null) setTemperature(tempValue[0]);
+        if (tempValue[1] !== null) setHumidity(tempValue[1]);
         // SetPostData({
         //   temperature: Number(tempDataValue[0]),
         //   humidity: Number(tempDataValue[1]),
