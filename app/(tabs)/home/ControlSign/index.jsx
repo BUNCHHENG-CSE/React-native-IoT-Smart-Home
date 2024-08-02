@@ -5,10 +5,14 @@ import {
   useCameraDevice,
   useCameraPermission,
   useFrameProcessor,
+  useSkiaFrameProcessor,
 } from "react-native-vision-camera";
 import { useFocusEffect } from "expo-router";
+import { BlendColor, ColorMatrix, Paint,rect2rect } from "@shopify/react-native-skia";
+
 
 const index = () => {
+ 
   const device = useCameraDevice("front", {
     physicalDevices: ["ultra-wide-angle-camera"],
   });
@@ -17,13 +21,19 @@ const index = () => {
   const [model, setModel] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const cameraRef = useRef(null);
-  
-  const frameProcessor = useFrameProcessor((frame)=>{
+
+  const frameProcessor = useSkiaFrameProcessor((frame) => {
     'worklet'
-    const objects = detectObjects(frame)
-    const label = objects[0].name
-    console.log(`You're looking at a ${label}.`)
-  },[])
+    frame.render()
+  
+    const centerX = frame.width / 2
+    const centerY = frame.height / 2
+    const rect = rect2rect(centerX, centerY, 150, 150)
+    const paint = Paint()
+    paint.setColor()
+    frame.drawRect(rect, paint)
+  }, [])
+
   useEffect(() => {
     if (!hasPermission) {
       requestPermission();
@@ -62,6 +72,7 @@ const index = () => {
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={isActive}
+         pixelFormat="rgb"
         frameProcessor={frameProcessor}
       />
     </View>
