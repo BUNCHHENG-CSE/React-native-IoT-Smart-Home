@@ -5,11 +5,7 @@ module.exports = function (api) {
     plugins: [
       "nativewind/babel",
       "react-native-worklets-core/plugin",
-      
-        "react-native-reanimated/plugin",
-        {
-          globals: ["__labelImage"],
-        },
+    
       
     ],
   };
