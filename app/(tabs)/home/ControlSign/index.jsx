@@ -22,16 +22,9 @@ const index = () => {
   const [predictions, setPredictions] = useState([]);
   const cameraRef = useRef(null);
 
-  const frameProcessor = useSkiaFrameProcessor((frame) => {
+  const frameProcessor = useFrameProcessor((frame) => {
     'worklet'
-    frame.render()
-  
-    const centerX = frame.width / 2
-    const centerY = frame.height / 2
-    const rect = Skia.XYWHRect(centerX, centerY, 150, 150)
-    const paint = Skia.Paint()
-    paint.setColor(Skia.Color('red'))
-    frame.drawRect(rect, paint)
+    console.log(frame)
   }, [])
 
   useEffect(() => {
@@ -47,7 +40,7 @@ const index = () => {
     //   //   require('./assets/weights2.bin'),
     //   //   require('./assets/weights3.bin'),
     //   // ];
-    //   // const model = await tf.loadGraphModel(bundleResourceIO(modelJsonUri, weightsUris));
+    //   // const model = await tf.loadGraphModel(bundleResourceIO(modelJsonUri, weightsUris));r
     //   // setModel(model);
     // })();
   }, []);
@@ -72,8 +65,6 @@ const index = () => {
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={isActive}
-         pixelFormat="rgb"
-        frameProcessor={frameProcessor}
       />
     </View>
   );
