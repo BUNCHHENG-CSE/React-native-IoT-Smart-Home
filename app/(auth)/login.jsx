@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   View,
@@ -30,8 +30,11 @@ const Login = () => {
       AsyncStorage.setItem("token", "YVhRZ2FYTnVKM1FnWVNCd1lYTnpkMjl5WkE9PQ==");
       return true;
     } else {
-      Alert.alert("Error", "The email and password you entered is incorrect. Please try again",);
-      setForm({...form,password:""})
+      Alert.alert(
+        "Error",
+        "The email and password you entered is incorrect. Please try again"
+      );
+      setForm({ ...form, password: "" });
       return false;
     }
   };

@@ -6,7 +6,7 @@ import GradientText from "../../../../components/GradientText";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const index = () => {
-  const { mqttPublish, payload } = useEMQXConnectionContext();
+  const { mqttPublish } = useEMQXConnectionContext();
 
   const [be1ledToggle, setBe1LedToggle] = useState("");
   const [ba1ledToggle, setBa1LedToggle] = useState("");

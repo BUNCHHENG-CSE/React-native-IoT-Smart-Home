@@ -1,8 +1,6 @@
-import { View, Text } from "react-native";
 import { useFonts } from "expo-font";
 import React, { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
-import Layout from "../components/Layout";
 import EMQXConnectionProvider from "../context/EMQXConnectionProvider";
 import GlobalProvider from "../context/GlobalProvider";
 

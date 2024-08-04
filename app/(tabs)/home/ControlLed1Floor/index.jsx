@@ -6,7 +6,7 @@ import GradientText from "../../../../components/GradientText";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const index = () => {
-  const { mqttPublish, payload } = useEMQXConnectionContext();
+  const { mqttPublish } = useEMQXConnectionContext();
   
   const [kledToggle, setKLedToggle] = useState("");
   const [lviledToggle, setLviLedToggle] = useState("");
@@ -92,14 +92,6 @@ const index = () => {
         console.error("Error retrieving data: ", error);
       });
   }, []);
-
-  // AsyncStorage.removeItem('key')
-  // .then(() => {
-  //   console.log('Data removed successfully.');
-  // })
-  // .catch(error => {
-  //   console.error('Error removing data: ', error);
-  // });
   const ledLists = [
     {
       id: 1,

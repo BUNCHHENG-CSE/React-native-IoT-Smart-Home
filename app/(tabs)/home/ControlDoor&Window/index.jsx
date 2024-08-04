@@ -7,7 +7,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const index = () => {
-  const { mqttPublish, payload } = useEMQXConnectionContext();
+  const { mqttPublish } = useEMQXConnectionContext();
 
   const [gateToggle, setGateToggle] = useState("");
   const [doorToggle, setDoorToggle] = useState("");

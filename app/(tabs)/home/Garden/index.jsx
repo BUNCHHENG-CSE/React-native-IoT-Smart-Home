@@ -1,70 +1,16 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import GradientText from "../../../../components/GradientText";
 import { useEMQXConnectionContext } from "../../../../context/EMQXConnectionProvider";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { base_url_from_ow } from "../../../../components/BaseUrl";
-import axios from "axios";
 const index = () => {
   const { mqttPublish, payload } = useEMQXConnectionContext();
-  const [data, setData] = useState([]);
   const [temperature, setTemperature] = useState(0);
-  const [arrTemperature, setArrTemperature] = useState([]);
-  const [tempDate, setTempDate] = useState([]);
   const [waterPumbToggle, setWaterPumbToggle] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [tempDataKey, setTempDataKey] = useState([]);
   const [tempDataValue, setTempDataValue] = useState([]);
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-  const formatTime = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleString("en-US", {
-      hour: "2-digit",
-      // minute: "2-digit",
-      // second: "2-digit",
-    });
-  };
-  const compareDates = (dateString1, dateString2) => {
-    const date1 = dateString1;
-    const date2 = dateString2;
-    // console.log("Date1", date1);
-    // console.log("Date2", date2);
-    if (date1 < date2) {
-      return -1;
-    } else if (date1 > date2) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
-  const formatDateNow = (date) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const formattedDate = date.toLocaleDateString("en-US", options);
-    const [month, day, year] = formattedDate.split(" ");
-    return `${month} ${day} ${year}`;
-  };
-  const formatTimeNow = (date) => {
-    const options = { hour: "2-digit" };
-    const formattedDate = date.toLocaleDateString("en-US", options);
-    const [hour] = formattedDate.split(" ");
-    return `${hour}`;
-  };
   const storeData = async (key, value) => {
     try {
       await AsyncStorage.setItem(key, value);
@@ -73,7 +19,6 @@ const index = () => {
     }
   };
   useEffect(() => {
-    // // Fetch data using GET request
     AsyncStorage.getItem("water")
       .then((value) => {
         if (value !== null) {
@@ -91,8 +36,6 @@ const index = () => {
       .catch((error) => {
         console.error("Error retrieving data: ", error);
       });
-  
-    // //console.log(formatDateNow(new Date(Date.now())));
   }, []);
   useEffect(() => {
     if (Object.keys(payload).length !== 0) {
@@ -100,7 +43,7 @@ const index = () => {
       let tempValue = Object.values(JSON.parse(payload));
       if (tempKey[0] == "temperature") {
         setTemperature(tempValue[0]);
-        
+
         setTempDataValue([]);
         setTempDataKey([]);
       }
@@ -109,7 +52,6 @@ const index = () => {
     }
   }, [payload]);
 
-  
   return (
     <View className="mt-5 mx-2">
       <View>

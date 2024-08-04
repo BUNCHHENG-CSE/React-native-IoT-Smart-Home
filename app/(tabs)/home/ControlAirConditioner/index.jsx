@@ -13,7 +13,7 @@ import { useEMQXConnectionContext } from "../../../../context/EMQXConnectionProv
 import GradientText from "../../../../components/GradientText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const index = () => {
-  const { mqttPublish, payload } = useEMQXConnectionContext();
+  const { mqttPublish } = useEMQXConnectionContext();
   const spinValue = useRef(new Animated.Value(0)).current;
 
   const spin = () => {

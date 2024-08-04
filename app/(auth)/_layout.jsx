@@ -1,7 +1,5 @@
 import { Redirect, Stack } from "expo-router";
-import { View, Text } from "react-native";
 import React from "react";
-import Loader from "../../components/Loader";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const AuthLayout = () => {
@@ -23,7 +21,6 @@ const AuthLayout = () => {
           }}
         />
       </Stack>
-      {/* <Loader isLoading={loading} /> */}
     </>
   );
 };
